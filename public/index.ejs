@@ -136,7 +136,7 @@
 
         </div>
     </section>
-    <section class="pricing">
+<section class="pricing">
         <div class="headline" data-aos="fade-up">
             <h2>Gotowy wejść na wyższy poziom?</h2>
             <p data-aos="fade-up"><span><img src="img/graduation-cap-solid.svg" alt=""> 249+ </span> Tyle osób nam
@@ -153,7 +153,7 @@
                 <h2 class="pricetag2">42.40 zł</h2>
                 <h2 class="pricetag">24.99 zł</h2>
                 <p class="info">Cena uwzglęgnia podatek*</p>
-                <a><button id="payButton">Kup teraz</button></a>
+            <button id="payButton" data-amount="37.99" data-title_service="Premium Basic">Kup teraz</button>
                 <h4 class="feature-title">Co posiada E-book</h4>
                 <div class="feature"><i class="fa-solid fa-star"></i>
                     <p>Rozpisane ćwiczenia skupione na pobudzeniu hormonu wzrostu naturalnie</p>
@@ -187,7 +187,7 @@
                 <h2 class="pricetag2">76.00 zł</h2>
                 <h2 class="pricetag">37.99 zł</h2>
                 <p class="info">Cena uwzglęgnia podatek*</p>
-                <a><button id="payButton">Kup teraz</button></a>
+             <button id="payButton" data-amount="37.99" data-title_service="Premium Package">Kup teraz</button>
                 <h4 class="feature-title">Co posiada E-book</h4>
                 <div class="feature"><i class="fa-solid fa-star"></i>
                     <p>Rozpisane ćwiczenia skupione na pobudzeniu hormonu wzrostu naturalnie</p>
@@ -218,7 +218,7 @@
                 <h2 class="pricetag2">135.99 zł</h2>
                 <h2 class="pricetag">79.99 zł</h2>
                 <p class="info">Cena uwzglęgnia podatek*</p>
-                <a><button id="payButton">Kup teraz</button></a>
+               <button id="payButton" data-amount="79.99" data-title_service="Ultimate Package">Kup teraz</button>
                 <h4 class="feature-title">Co posiada E-book</h4>
                 <div class="feature"><i class="fa-solid fa-star"></i>
                     <p>Rozpisane ćwiczenia skupione na pobudzeniu hormonu wzrostu naturalnie</p>
@@ -256,7 +256,7 @@
         });
     </script>
 
-    <script type="module">
+<script type="module">
         import Notiflix from 'https://cdn.jsdelivr.net/npm/notiflix@3.2.7/+esm'
 
 
@@ -265,9 +265,14 @@
         payButtons.forEach(button => {
             button.addEventListener('click', async e => {
                 let response;
+                const amount = button.getAttribute('data-amount');
+                const title_service = button.getAttribute('data-title_service');
 
                 try {
-                    response = await axios.post(`http://localhost:3000/api/v1/payment/start`)
+                        response = await axios.post('http://localhost:3000/api/v1/payment/start', {
+                        amount: amount,
+                        title_service: title_service
+                    });
                 } catch (err) {
                     Notiflix.Notify.failure('Nie udało się rozpocząć płatności!', { showOnlyTheLastOne: true });
                     return;
